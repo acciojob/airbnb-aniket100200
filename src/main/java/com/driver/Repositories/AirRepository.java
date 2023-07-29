@@ -25,9 +25,7 @@ public class AirRepository
         hotelDB.put(hotel.getHotelName(),hotel);
         return "SUCCESS";
     }
-    public User getIdAdhar(){
-        return userDB.get(899620);
-    }
+
 
     public Integer addUser(User user)
     {
@@ -38,28 +36,31 @@ public class AirRepository
 
     public List<Hotel>getAllHotels(){
         List<Hotel>list=new ArrayList<>();
-        for(Hotel hotel:hotelDB.values()){
-            list.add(hotel);
-        }
+        Collection<Hotel>hotels=hotelDB.values();
+        list.addAll(hotels);
         return list;
     }
-
+    //The booking object coming from postman will have all the attributes except bookingId and amountToBePaid;
+    //Have bookingId as a random UUID generated String
+    //save the booking Entity and keep the bookingId as a primary key
+    //Calculate the total amount paid by the person based on no. of rooms booked and price of the room per night.
+    //If there aren't enough rooms available in the hotel that we are trying to book return -1
+    //in other case return total amount paid
     public int bookARoom(Booking booking)
     {
         if(booking==null)return -1;
-        if(booking.getHotelName()==null)return -1;
-        if(!hotelDB.containsKey(bookingDB.get(booking.getHotelName())))return -1;
-        int availableRooms=hotelDB.get(booking.getHotelName()).getAvailableRooms();
+        String hotel=booking.getHotelName();
+        if(hotel==null || !hotelDB.containsKey(hotel))return -1;
         int noOfRooms=booking.getNoOfRooms();
-        if(availableRooms<booking.getNoOfRooms())return -1;
+        int availableRooms=hotelDB.get(hotel).getAvailableRooms();
+        if(availableRooms<noOfRooms)return -1;
 
-        //else you'll book the room availabilty will decrease...
-        //here we go.. thanks gotch
-        else hotelDB.get(booking.getHotelName()).setAvailableRooms(availableRooms-noOfRooms);
         //else i'll uudi..
         UUID uuid=UUID.randomUUID();
+
         String bookingId=uuid.toString();
         bookingDB.put(bookingId,booking);
+        hotelDB.get(hotel).setAvailableRooms(availableRooms-noOfRooms);
 
         //let's calculate total bill..
         int totalAmountToBePaid=noOfRooms*hotelDB.get(booking.getHotelName()).getPricePerNight();
@@ -68,8 +69,10 @@ public class AirRepository
         return totalAmountToBePaid;
     }
 
-    public List<Booking> getAllBookings(){
+    public List<Booking> getAllBookings()
+    {
         List<Booking>list=new ArrayList<>();
+        if(bookingDB.size()==0)return list;
         Collection<Booking>bookings=bookingDB.values();
         list.addAll(bookings);
         return list;

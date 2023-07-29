@@ -1,5 +1,7 @@
 package com.driver.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Booking {
 
     private String bookingId; //This will be a random UUID generated String
@@ -21,8 +23,13 @@ public class Booking {
         this.bookingPersonName = bookingPersonName;
         this.hotelName = hotelName;
     }
+    public Booking(){
 
-    public Booking(int bookingAadharCard, int noOfRooms, String bookingPersonName, String hotelName) {
+    }
+
+    @JsonCreator
+    public Booking(int bookingAadharCard, int noOfRooms, String bookingPersonName, String hotelName)
+    {
         this.bookingAadharCard = bookingAadharCard;
         this.noOfRooms = noOfRooms;
         this.bookingPersonName = bookingPersonName;

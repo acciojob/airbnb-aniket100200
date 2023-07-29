@@ -34,10 +34,14 @@ public class AirService
         List<Hotel> list=airRepository.getAllHotels();
         int max=0;
         String pans="";
-        for(Hotel hotel:list) {
-            if (hotel.getFacilities().size() > max) {
+        if(list==null|| list.size()==0)return "";
+        for(Hotel hotel:list)
+        {
+            if(hotel==null || hotel.getFacilities()==null)continue;
+            if (hotel.getFacilities().size() > max)
+            {
                 max=hotel.getFacilities().size();
-                pans=hotel.getHotelName();
+               if(hotel.getHotelName()!=null) pans=hotel.getHotelName();
             }
         }
         //we have max...
@@ -51,6 +55,7 @@ public class AirService
         String ans=pans;
         for(Hotel hotel:list)
         {
+            if(hotel==null || hotel.getFacilities()==null)continue;
             if(hotel.getFacilities().size()==max)
             {
                if(hotel.getHotelName().compareToIgnoreCase(ans)<0)
