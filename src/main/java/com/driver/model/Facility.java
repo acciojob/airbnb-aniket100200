@@ -1,6 +1,7 @@
 package com.driver.model;
 
-public enum Facility {
+public enum Facility
+{
 
     GYM,
     SWIMMING_POOL,
