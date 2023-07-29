@@ -18,14 +18,19 @@ public class AirRepository
 
     public String addHotel(Hotel hotel)
     {
+        if(hotel==null)return "FAILURE";
         if(hotelDB.containsKey(hotel.getHotelName()))return "FAILURE";
         if(hotel.getHotelName()==null)return "an empty a FAILURE";
         hotelDB.put(hotel.getHotelName(),hotel);
         return "SUCCESS";
     }
+    public User getIdAdhar(){
+        return userDB.get(899620);
+    }
 
     public Integer addUser(User user)
     {
+        if(user==null)return -1;
         userDB.put(user.getaadharCardNo(),user);
         return user.getaadharCardNo();
     }
@@ -40,6 +45,9 @@ public class AirRepository
 
     public int bookARoom(Booking booking)
     {
+        if(booking==null)return -1;
+        if(booking.getHotelName()==null)return -1;
+        if(!hotelDB.containsKey(bookingDB.get(booking.getHotelName())))return -1;
         int availableRooms=hotelDB.get(booking.getHotelName()).getAvailableRooms();
         int noOfRooms=booking.getNoOfRooms();
         if(availableRooms<booking.getNoOfRooms())return -1;
@@ -73,6 +81,10 @@ public class AirRepository
 
     public Hotel updateFacilities(List<Facility> newFacilities, String hotelName)
     {
+        if(hotelDB.containsKey(hotelName)==false)return null;
+
+        if(newFacilities==null)return hotelDB.get(hotelName);
+
         List<Facility>list=hotelDB.get(hotelName).getFacilities();
         Set<String>set=new HashSet<>();
         for(Facility facility:list)set.add(facility.name());

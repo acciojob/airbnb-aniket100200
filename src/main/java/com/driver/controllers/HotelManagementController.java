@@ -42,6 +42,7 @@ public AirService airService;
         //You need to add a User Object to the database
         //Assume that user will always be a valid user and return the aadharCardNo of the user
 
+
        return airService.addUser(user);
     }
 
@@ -77,7 +78,7 @@ public AirService airService;
     }
 
     @PutMapping("/update-facilities")
-    public Hotel updateFacilities(@RequestBody List<Facility> newFacilities,@PathVariable String hotelName){
+    public Hotel updateFacilities(List<Facility> newFacilities,String hotelName){
 
         //We are having a new facilites that a hotel is planning to bring.
         //If the hotel is already having that facility ignore that facility otherwise add that facility in the hotelDb

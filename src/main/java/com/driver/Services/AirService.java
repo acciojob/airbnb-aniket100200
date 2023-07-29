@@ -36,7 +36,7 @@ public class AirService
         String pans="";
         for(Hotel hotel:list) {
             if (hotel.getFacilities().size() > max) {
-                max = Math.max(hotel.getFacilities().size(), max);
+                max=hotel.getFacilities().size();
                 pans=hotel.getHotelName();
             }
         }
