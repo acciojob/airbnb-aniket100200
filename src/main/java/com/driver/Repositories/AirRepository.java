@@ -18,7 +18,7 @@ public class AirRepository
 
     public String addHotel(Hotel hotel)
     {
-        if(hotel==null || hotel.getHotelName()==null)return "an empty a FAILURE";
+        if(hotel==null || hotel.getHotelName()==null)return "FAILURE";
 
         if(hotelDB.containsKey(hotel.getHotelName()))return "FAILURE";
 
