@@ -17,7 +17,7 @@ public class AirService
 {
 
     @Autowired
-    private AirRepository airRepository;
+    private AirRepository airRepository=new AirRepository();
     public String addHotel(Hotel hotel){
         return airRepository.addHotel(hotel);
     }

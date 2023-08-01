@@ -22,7 +22,7 @@ public class HotelManagementController
 {
 
     @Autowired
-public AirService airService;
+public AirService airService=new AirService();
     @PostMapping("/add-hotel")
     public String addHotel(@RequestBody Hotel hotel)
     {
